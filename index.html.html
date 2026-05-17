@@ -1,0 +1,511 @@
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+#pbs-app { font-family: 'DM Sans', sans-serif; background: #1a1a2e; color: #e8e0d0; padding: 16px; border-radius: 12px; box-sizing: border-box; }
+#pbs-app *, #pbs-app *::before, #pbs-app *::after { box-sizing: border-box; margin: 0; padding: 0; }
+#pbs-app .title { font-family: 'Abril Fatface', serif; font-size: 28px; text-align: center; color: #f5c842; letter-spacing: 2px; margin-bottom: 2px; }
+#pbs-app .subtitle { text-align: center; font-size: 11px; color: #8a8a9a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+#pbs-app .screen { display: none; }
+#pbs-app .screen.active { display: block; }
+#pbs-app .login-box { max-width: 360px; margin: 40px auto; background: #16213e; border-radius: 12px; padding: 28px; border: 1px solid #2a2a4a; text-align: center; }
+#pbs-app .login-title { font-family: 'Abril Fatface', serif; color: #f5c842; font-size: 20px; margin-bottom: 8px; }
+#pbs-app .login-note { font-size: 12px; color: #8a8a9a; margin-bottom: 20px; line-height: 1.5; }
+#pbs-app .id-input { width: 100%; background: #0d1b2a; border: 2px solid #3a3a6a; border-radius: 8px; padding: 12px; font-size: 24px; font-family: 'Abril Fatface', serif; color: #f5c842; text-align: center; outline: none; letter-spacing: 4px; margin-bottom: 14px; }
+#pbs-app .id-input:focus { border-color: #f5c842; }
+#pbs-app .summary-box { max-width: 400px; margin: 30px auto; background: #16213e; border-radius: 12px; padding: 24px; border: 1px solid #2a2a4a; text-align: center; }
+#pbs-app .summary-title { font-family: 'Abril Fatface', serif; color: #f5c842; font-size: 22px; margin-bottom: 16px; }
+#pbs-app .summary-stat { background: #0d1b2a; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+#pbs-app .summary-stat-label { font-size: 11px; color: #8a8a9a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+#pbs-app .summary-stat-value { font-family: 'Abril Fatface', serif; font-size: 28px; color: #f5c842; }
+#pbs-app .admin-box { max-width: 480px; margin: 20px auto; background: #16213e; border-radius: 12px; padding: 20px; border: 1px solid #2a2a4a; }
+#pbs-app .admin-title { font-family: 'Abril Fatface', serif; color: #f5c842; font-size: 18px; margin-bottom: 6px; }
+#pbs-app .admin-note { font-size: 12px; color: #8a8a9a; margin-bottom: 14px; line-height: 1.5; }
+#pbs-app .ex-row { display: flex; gap: 8px; margin-bottom: 7px; align-items: center; }
+#pbs-app .ex-num { font-size: 12px; color: #8a8a9a; width: 20px; flex-shrink: 0; }
+#pbs-app .ex-input { flex: 1; background: #0d1b2a; border: 1px solid #3a3a6a; border-radius: 6px; padding: 7px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: #e8e0d0; outline: none; }
+#pbs-app .ex-input:focus { border-color: #f5c842; }
+#pbs-app .admin-btns { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+#pbs-app .admin-stats { margin-top: 20px; border-top: 1px solid #2a2a4a; padding-top: 16px; }
+#pbs-app .admin-stats-title { font-size: 12px; color: #8a8a9a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+#pbs-app .participant-row { display: flex; justify-content: space-between; align-items: center; background: #0d1b2a; border-radius: 6px; padding: 8px 12px; margin-bottom: 6px; font-size: 12px; flex-wrap: wrap; gap: 4px; }
+#pbs-app .pid { color: #f5c842; font-weight: 600; font-family: 'Abril Fatface', serif; }
+#pbs-app .pstats { color: #8a8a9a; }
+#pbs-app .pstats span { color: #e8e0d0; font-weight: 600; }
+#pbs-app .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #2a2a4a; }
+#pbs-app .game-pid { font-family: 'Abril Fatface', serif; font-size: 16px; color: #f5c842; }
+#pbs-app .game-month-label { font-size: 12px; color: #8a8a9a; }
+#pbs-app .game-score { font-family: 'Abril Fatface', serif; background: #f5c842; color: #1a1a2e; font-size: 15px; padding: 3px 12px; border-radius: 20px; }
+#pbs-app .two-col { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
+#pbs-app .sec-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8a8a9a; margin-bottom: 6px; font-weight: 600; }
+#pbs-app .bingo-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 3px; margin-bottom: 8px; width: 220px; }
+#pbs-app .bc { background: #0f3460; border: 1px solid #1e4a7a; border-radius: 4px; padding: 2px; text-align: center; font-size: 8px; line-height: 1.2; cursor: pointer; transition: all 0.15s; height: 40px; display: flex; align-items: center; justify-content: center; color: #b0c4de; user-select: none; }
+#pbs-app .bc:hover { background: #1a5a9a; }
+#pbs-app .bc.marked { background: #27ae60 !important; border-color: #2ecc71 !important; color: #fff !important; font-weight: 600; }
+#pbs-app .bc.bwin { background: #f5c842 !important; border-color: #f5c842 !important; color: #1a1a2e !important; font-weight: 700; }
+#pbs-app .bc.bwin-flash { animation: pbs-bpulse 0.6s ease forwards; }
+@keyframes pbs-bpulse { 0%{background:#e74c3c;border-color:#c0392b;color:#fff;transform:scale(1.08)} 60%{background:#f5c842;border-color:#f5c842;color:#1a1a2e;transform:scale(1.04)} 100%{background:#f5c842;border-color:#f5c842;color:#1a1a2e;transform:scale(1)} }
+#pbs-app .bwins { font-size: 11px; color: #f5c842; margin-bottom: 4px; }
+#pbs-app .bflash { font-size: 12px; color: #2ecc71; font-weight: 600; min-height: 18px; margin-bottom: 6px; }
+#pbs-app .right-col { display: flex; flex-direction: column; gap: 12px; }
+#pbs-app .cw-scroll { overflow-x: auto; background: #0d1b2a; border-radius: 8px; border: 1px solid #2a2a4a; padding: 6px; }
+#pbs-app .cw-board { display: grid; gap: 1px; width: fit-content; }
+#pbs-app .cw-cell { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-family: 'Abril Fatface', serif; font-size: 14px; color: #f5deb3; background: #1a3a5c; border-radius: 2px; position: relative; }
+#pbs-app .cw-cell.empty { background: #0f1f35; }
+#pbs-app .cw-cell.center { background: #2a2a4a; font-size: 10px; color: #f5c842; font-family: 'DM Sans', sans-serif; }
+#pbs-app .cw-cell.preview { background: #3a6a2a; color: #fff; }
+#pbs-app .cw-cell .cv { font-family: 'DM Sans', sans-serif; font-size: 6px; position: absolute; bottom: 1px; right: 2px; color: #8a6a30; }
+#pbs-app .cw-cell.preview .cv { color: #aee; }
+#pbs-app .place-box { background: #0d1b2a; border-radius: 8px; border: 2px solid #3a3a6a; padding: 14px; }
+#pbs-app .place-title { font-size: 13px; font-weight: 600; color: #e8e0d0; margin-bottom: 10px; }
+#pbs-app .place-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+#pbs-app .place-field { display: flex; flex-direction: column; gap: 4px; }
+#pbs-app .place-field label { font-size: 10px; color: #8a8a9a; text-transform: uppercase; letter-spacing: 0.5px; }
+#pbs-app .coord-input { background: #16213e; border: 2px solid #5a5a9a; border-radius: 6px; padding: 7px 8px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: #e8e0d0; outline: none; width: 100%; }
+#pbs-app .coord-input:focus { border-color: #f5c842; }
+#pbs-app .dir-sel { background: #16213e; border: 2px solid #5a5a9a; border-radius: 6px; padding: 7px 8px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: #e8e0d0; outline: none; width: 100%; cursor: pointer; }
+#pbs-app .word-preview { font-size: 14px; color: #f5c842; margin-bottom: 12px; font-family: 'Abril Fatface', serif; letter-spacing: 3px; min-height: 22px; }
+#pbs-app .word-preview.empty { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #6a6a9a; letter-spacing: 0; font-weight: 400; }
+#pbs-app .play-btn-row { display: flex; gap: 10px; }
+#pbs-app .rack-box { background: #0d1b2a; border-radius: 8px; border: 1px solid #2a2a4a; padding: 10px; }
+#pbs-app .rack-inner { display: flex; gap: 5px; flex-wrap: wrap; min-height: 44px; }
+#pbs-app .tile { width: 36px; height: 36px; background: #f5deb3; border-radius: 4px; border: 2px solid #c8a96e; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; font-family: 'Abril Fatface', serif; color: #2c1810; font-size: 17px; line-height: 1; position: relative; transition: all 0.12s; user-select: none; flex-shrink: 0; }
+#pbs-app .tile:hover { transform: translateY(-4px); box-shadow: 0 5px 10px rgba(0,0,0,0.4); }
+#pbs-app .tile.sel { background: #f5c842; border-color: #e6b800; transform: translateY(-5px); box-shadow: 0 6px 14px rgba(245,200,66,0.5); }
+#pbs-app .tile .tv { font-family: 'DM Sans', sans-serif; font-size: 7px; font-weight: 600; position: absolute; bottom: 2px; right: 3px; color: #5a3010; }
+#pbs-app .words-box { background: #0d1b2a; border-radius: 8px; border: 1px solid #2a2a4a; padding: 10px; }
+#pbs-app .played-words { display: flex; flex-wrap: wrap; gap: 4px; }
+#pbs-app .pw { background: #1a3a5c; border-radius: 4px; padding: 3px 7px; font-size: 11px; color: #b0d4f0; }
+#pbs-app .pw span { color: #f5c842; }
+#pbs-app .nav-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+#pbs-app .pbs-toast { position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-80px); background: #f5c842; color: #1a1a2e; font-weight: 700; font-size: 14px; padding: 9px 22px; border-radius: 24px; transition: transform 0.3s; z-index: 9999; pointer-events: none; font-family: 'DM Sans', sans-serif; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+#pbs-app .pbs-toast.show { transform: translateX(-50%) translateY(0); }
+@media (max-width:600px) { #pbs-app .two-col{grid-template-columns:1fr} #pbs-app .bingo-grid{width:100%} #pbs-app .place-grid{grid-template-columns:1fr 1fr} }
+</style>
+
+<div id="pbs-app">
+  <div class="title">PACE BINGO SCRABBLE</div>
+  <div class="subtitle">Monthly Exercise Challenge</div>
+
+  <div class="nav-row" id="pbs-navRow" style="display:none">
+    <button id="pbs-btn-game" style="background:#2471a3;color:#fff;border:2px solid #5dade2;border-radius:7px;padding:7px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">🎮 My Game</button>
+    <button id="pbs-btn-admin" style="background:#7d3c98;color:#fff;border:2px solid #a569bd;border-radius:7px;padding:7px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">⚙️ Admin</button>
+    <button id="pbs-btn-logout" style="background:#5d6d7e;color:#fff;border:2px solid #85929e;border-radius:7px;padding:7px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">↩ Log Out</button>
+  </div>
+
+  <div class="screen active" id="pbs-screen-login">
+    <div class="login-box">
+      <div class="login-title">Welcome!</div>
+      <div class="login-note">Enter your participant ID to load your monthly exercise card.</div>
+      <input class="id-input" id="pbs-pidInput" type="text" maxlength="10" placeholder="ID" autocomplete="off">
+      <button id="pbs-btn-start" style="width:100%;background:#27ae60;color:#fff;border:3px solid #52d68a;border-radius:8px;padding:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:10px;">▶ Start</button>
+      <div style="font-size:11px;color:#4a4a6a">Admin? Enter <strong style="color:#8a8a9a">ADMIN</strong></div>
+    </div>
+  </div>
+
+  <div class="screen" id="pbs-screen-summary">
+    <div class="summary-box">
+      <div class="summary-title">🎉 Month Complete!</div>
+      <div style="font-size:13px;color:#8a8a9a;margin-bottom:16px" id="pbs-summaryMonth"></div>
+      <div class="summary-stat"><div class="summary-stat-label">Squares Completed</div><div class="summary-stat-value" id="pbs-sumSquares">0 / 25</div></div>
+      <div class="summary-stat"><div class="summary-stat-label">Bingo Wins</div><div class="summary-stat-value" id="pbs-sumBingos">0</div></div>
+      <div class="summary-stat"><div class="summary-stat-label">Word Score</div><div class="summary-stat-value" id="pbs-sumScore">0 pts</div></div>
+      <button id="pbs-btn-newmonth" style="width:100%;margin-top:16px;background:#27ae60;color:#fff;border:3px solid #52d68a;border-radius:8px;padding:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">▶ Start New Month</button>
+    </div>
+  </div>
+
+  <div class="screen" id="pbs-screen-admin">
+    <div class="admin-box">
+      <div class="admin-title">Admin — Exercise Setup</div>
+      <div class="admin-note">Set up to 8 exercises for this month. All participants share the same exercise list.</div>
+      <div id="pbs-exInputs"></div>
+      <div class="admin-btns">
+        <button id="pbs-btn-saveex" style="background:#27ae60;color:#fff;border:3px solid #52d68a;border-radius:8px;padding:9px 18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">✓ Save Exercises</button>
+        <button id="pbs-btn-resetex" style="background:#5d6d7e;color:#fff;border:2px solid #85929e;border-radius:8px;padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">↺ Reset</button>
+      </div>
+      <div class="admin-stats">
+        <div class="admin-stats-title">📊 This Month — Participant Tracking</div>
+        <div id="pbs-adminStats"><div style="font-size:12px;color:#4a4a6a">No participants recorded yet.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="pbs-screen-game">
+    <div class="game-header">
+      <div>
+        <div class="game-pid" id="pbs-gamePid"></div>
+        <div class="game-month-label" id="pbs-gameMonth"></div>
+      </div>
+      <div class="game-score" id="pbs-gameScore">0 pts</div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="sec-label">Bingo Card</div>
+        <div class="bingo-grid" id="pbs-bingoGrid"></div>
+        <div class="bwins" id="pbs-bingoWins"></div>
+        <div class="bflash" id="pbs-bingoFlash"></div>
+      </div>
+      <div class="right-col">
+        <div>
+          <div class="sec-label">Word Board <span style="color:#4a4a6a;text-transform:none;letter-spacing:0" id="pbs-bagCount"></span></div>
+          <div class="cw-scroll" id="pbs-cwScroll"></div>
+        </div>
+        <div class="place-box">
+          <div class="place-title">Place a Word</div>
+          <div class="place-grid">
+            <div class="place-field"><label>Start Row (1–15)</label><input class="coord-input" id="pbs-pRow" type="number" min="1" max="15" value="8"></div>
+            <div class="place-field"><label>Start Col (1–15)</label><input class="coord-input" id="pbs-pCol" type="number" min="1" max="15" value="8"></div>
+            <div class="place-field"><label>Direction</label>
+              <select class="dir-sel" id="pbs-pDir">
+                <option value="H">→ Horizontal</option>
+                <option value="V">↓ Vertical</option>
+              </select>
+            </div>
+          </div>
+          <div class="word-preview empty" id="pbs-wordPreview">Click tiles below to select them in order</div>
+          <div class="play-btn-row">
+            <button id="pbs-btn-play" style="background:#27ae60;color:#fff;border:3px solid #52d68a;border-radius:8px;padding:11px 22px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">▶ Play Word</button>
+            <button id="pbs-btn-clear" style="background:#c0392b;color:#fff;border:3px solid #e74c3c;border-radius:8px;padding:11px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">✕ Clear</button>
+          </div>
+        </div>
+        <div class="rack-box">
+          <div class="sec-label">Your Tiles <span style="color:#4a4a6a;text-transform:none;letter-spacing:0" id="pbs-rackCount"></span></div>
+          <div class="rack-inner" id="pbs-rackEl"></div>
+        </div>
+        <div class="words-box">
+          <div class="sec-label">Words Played</div>
+          <div class="played-words" id="pbs-wordsPlayed"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pbs-toast" id="pbs-toast"></div>
+</div>
+
+<script>
+(function(){
+  var BOARD_SIZE=15,CENTER=7;
+  var DEFAULT_EX=['Chair Stand','Wall Sit','BFR Curl','Dead Bug','Rolling','Bird Dog','Heel Raise','Step Up'];
+  var LETTER_DIST={A:9,B:2,C:2,D:4,E:12,F:2,G:3,H:2,I:9,J:1,K:1,L:4,M:2,N:6,O:8,P:2,Q:1,R:6,S:4,T:6,U:4,V:2,W:2,X:1,Y:2,Z:1};
+  var LETTER_VAL={A:1,B:3,C:3,D:2,E:1,F:4,G:2,H:4,I:1,J:8,K:5,L:1,M:3,N:1,O:1,P:3,Q:10,R:1,S:1,T:1,U:1,V:4,W:4,X:8,Y:4,Z:10};
+  var ZC_APP='note-writer-1-1',ZC_FORM='Therapy_Bingo_Log',ZC_REPORT='All_Therapy_Bingo_Logs';
+  var exercises=[].concat(DEFAULT_EX),bag=[],state=null,pid='',selected=[],newWinLines=[];
+
+  function lsget(k){try{var v=localStorage.getItem('pbs_'+k);return v?JSON.parse(v):null;}catch(e){return null;}}
+  function lsset(k,v){try{localStorage.setItem('pbs_'+k,JSON.stringify(v));}catch(e){}}
+
+  function zcQuery(criteria){
+    return new Promise(function(res,rej){
+      ZOHO.CREATOR.API.getAllRecords({appName:ZC_APP,reportName:ZC_REPORT,criteria:criteria,page:1,pageSize:200})
+        .then(function(r){res(r&&r.data?r.data:[]);}).catch(rej);
+    });
+  }
+  function zcInsert(data){
+    return new Promise(function(res,rej){
+      ZOHO.CREATOR.API.addRecord({appName:ZC_APP,formName:ZC_FORM,payload:{data:data}}).then(res).catch(rej);
+    });
+  }
+  function zcUpdate(id,data){
+    return new Promise(function(res,rej){
+      ZOHO.CREATOR.API.updateRecord({appName:ZC_APP,reportName:ZC_REPORT,id:id,payload:{data:data}}).then(res).catch(rej);
+    });
+  }
+  function zohoUpsert(p,month,squares,bingos,score){
+    var pct=parseFloat((squares/25*100).toFixed(1));
+    var now=new Date().toISOString().replace('T',' ').substring(0,19);
+    zcQuery('Participant_ID == "'+p+'" && Month_Year == "'+month+'"').then(function(rows){
+      if(rows.length>0){zcUpdate(rows[0].ID,{Squares_Marked:squares,Bingo_Wins:bingos,Word_Score:score,Completion_Pct:pct,Last_Updated:now});}
+      else{zcInsert({Participant_ID:p,Month_Year:month,Squares_Marked:squares,Bingo_Wins:bingos,Word_Score:score,Completion_Pct:pct,Last_Updated:now});}
+    }).catch(function(e){console.warn('Zoho sync:',e);});
+  }
+
+  function monthKey(){var d=new Date();return d.getFullYear()+'-'+d.getMonth();}
+  function monthLabel(){return new Date().toLocaleString('default',{month:'long',year:'numeric'});}
+  function makeBag(){bag=[];for(var l in LETTER_DIST){for(var i=0;i<LETTER_DIST[l];i++)bag.push(l);}bag.sort(function(){return Math.random()-0.5;});}
+  function drawTiles(n){var d=[];for(var i=0;i<n&&bag.length>0;i++)d.push(bag.pop());return d;}
+
+  function makeBingoCard(){
+    var pool=[];while(pool.length<25)pool=pool.concat(exercises);
+    pool.sort(function(){return Math.random()-0.5;});
+    var card=[];
+    for(var r=0;r<5;r++){var row=[];for(var c=0;c<5;c++)row.push({ex:pool[r*5+c],marked:false});card.push(row);}
+    return card;
+  }
+  function emptyBoard(){var b=[];for(var r=0;r<BOARD_SIZE;r++){var row=[];for(var c=0;c<BOARD_SIZE;c++)row.push(null);b.push(row);}return b;}
+
+  function checkBingo(card){
+    var wins=[];
+    for(var r=0;r<5;r++)if(card[r].every(function(c){return c.marked;}))wins.push('R'+r);
+    for(var c=0;c<5;c++){var col=c;if(card.every(function(r){return r[col].marked;}))wins.push('C'+c);}
+    if([0,1,2,3,4].every(function(i){return card[i][i].marked;}))wins.push('D1');
+    if([0,1,2,3,4].every(function(i){return card[i][4-i].marked;}))wins.push('D2');
+    return wins;
+  }
+  function isOnWinLine(ri,ci,wl){
+    return wl.some(function(l){
+      return (l.indexOf('R')===0&&parseInt(l[1])===ri)||(l.indexOf('C')===0&&parseInt(l[1])===ci)||(l==='D1'&&ri===ci)||(l==='D2'&&ri===4-ci);
+    });
+  }
+  function newState(){makeBag();return{month:monthKey(),score:0,rack:drawTiles(7),board:emptyBoard(),playedWords:[],bingoCard:makeBingoCard(),bingoWins:0,winLines:[],bagArr:bag.slice()};}
+
+  function pbsToast(msg){
+    var t=document.getElementById('pbs-toast');
+    t.textContent=msg;t.classList.add('show');
+    setTimeout(function(){t.classList.remove('show');},2800);
+  }
+
+  function showScreen(name){
+    document.querySelectorAll('#pbs-app .screen').forEach(function(s){s.classList.remove('active');});
+    document.getElementById('pbs-screen-'+name).classList.add('active');
+    if(name==='admin')loadAdmin();
+  }
+
+  function pbsLogin(){
+    var raw=document.getElementById('pbs-pidInput').value.trim().toUpperCase();
+    if(!raw){pbsToast('Please enter your ID');return;}
+    if(raw==='ADMIN'){loadAdmin();showScreen('admin');document.getElementById('pbs-navRow').style.display='flex';return;}
+    pid=raw;
+    var storedEx=lsget('admin-exercises');
+    if(storedEx)exercises=storedEx;
+    var saved=lsget('state-'+pid);
+    if(saved&&saved.month===monthKey()){state=saved;bag=state.bagArr||[];}
+    else if(saved&&saved.month!==monthKey()){showSummary(saved);return;}
+    else{state=newState();}
+    startGame();
+  }
+
+  function showSummary(old){
+    var marked=old.bingoCard.reduce(function(s,r){return s+r.filter(function(c){return c.marked;}).length;},0);
+    var mk=old.month.split('-');
+    document.getElementById('pbs-summaryMonth').textContent=new Date(parseInt(mk[0]),parseInt(mk[1])).toLocaleString('default',{month:'long',year:'numeric'});
+    document.getElementById('pbs-sumSquares').textContent=marked+' / 25';
+    document.getElementById('pbs-sumBingos').textContent=old.bingoWins;
+    document.getElementById('pbs-sumScore').textContent=old.score+' pts';
+    showScreen('summary');
+  }
+
+  function startNewMonth(){
+    var storedEx=lsget('admin-exercises');
+    if(storedEx)exercises=storedEx;
+    state=newState();saveState();startGame();
+  }
+
+  function startGame(){
+    document.getElementById('pbs-navRow').style.display='flex';
+    showScreen('game');
+    document.getElementById('pbs-gamePid').textContent='Participant: '+pid;
+    document.getElementById('pbs-gameMonth').textContent=monthLabel();
+    selected=[];renderAll();
+  }
+
+  function renderAll(){
+    renderBingo();renderBoard();renderRack();renderWords();
+    document.getElementById('pbs-gameScore').textContent=state.score+' pts';
+    document.getElementById('pbs-bingoWins').textContent='🏆 Bingos: '+state.bingoWins+' · Next bonus: +'+((state.bingoWins+1)*2)+' tiles';
+    document.getElementById('pbs-bagCount').textContent=bag.length+' tiles in bag';
+    document.getElementById('pbs-rackCount').textContent=state.rack.length+' in rack';
+  }
+
+  function renderBingo(){
+    var html='';
+    for(var ri=0;ri<5;ri++){
+      for(var ci=0;ci<5;ci++){
+        var cell=state.bingoCard[ri][ci];
+        var cls='bc';
+        if(cell.marked){
+          var ri2=ri,ci2=ci;
+          var isNew=newWinLines.some(function(l){return(l.indexOf('R')===0&&parseInt(l[1])===ri2)||(l.indexOf('C')===0&&parseInt(l[1])===ci2)||(l==='D1'&&ri2===ci2)||(l==='D2'&&ri2===4-ci2);});
+          cls+=isNew?' bwin bwin-flash':isOnWinLine(ri,ci,state.winLines)?' bwin':' marked';
+        }
+        html+='<div class="'+cls+'" data-ri="'+ri+'" data-ci="'+ci+'">'+cell.ex+'</div>';
+      }
+    }
+    var grid=document.getElementById('pbs-bingoGrid');
+    grid.innerHTML=html;
+    grid.querySelectorAll('.bc').forEach(function(el){
+      el.addEventListener('click',function(){markCell(parseInt(el.dataset.ri),parseInt(el.dataset.ci));});
+    });
+  }
+
+  function getPreview(){
+    if(!selected.length)return[];
+    var r=parseInt(document.getElementById('pbs-pRow').value)-1;
+    var c=parseInt(document.getElementById('pbs-pCol').value)-1;
+    var dir=document.getElementById('pbs-pDir').value;
+    if(isNaN(r)||isNaN(c)||r<0||r>=BOARD_SIZE||c<0||c>=BOARD_SIZE)return[];
+    return selected.map(function(si,i){return{r:dir==='H'?r:r+i,c:dir==='H'?c+i:c,l:state.rack[si]};});
+  }
+
+  function scoreWord(preview){
+    if(!preview.length)return 0;
+    var dir=document.getElementById('pbs-pDir').value;
+    var tempBoard=state.board.map(function(row){return row.slice();});
+    preview.forEach(function(cell){tempBoard[cell.r][cell.c]=cell.l;});
+    var isH=dir==='H',r=preview[0].r,c=preview[0].c;
+    if(isH){while(c>0&&tempBoard[r][c-1]!==null)c--;}
+    else{while(r>0&&tempBoard[r-1][c]!==null)r--;}
+    var pts=0,cr=r,cc=c;
+    while(cr<BOARD_SIZE&&cc<BOARD_SIZE&&tempBoard[cr][cc]!==null){pts+=LETTER_VAL[tempBoard[cr][cc]];if(isH)cc++;else cr++;}
+    return pts;
+  }
+
+  function renderBoard(){
+    var prev=getPreview(),pm={};
+    prev.forEach(function(c){pm[c.r+','+c.c]=c.l;});
+    var selWord=selected.map(function(i){return state.rack[i];}).join('');
+    var wp=document.getElementById('pbs-wordPreview');
+    if(selWord){var est=scoreWord(prev);wp.className='word-preview';wp.innerHTML=selWord+' <span style="color:#2ecc71;font-size:11px;font-family:\'DM Sans\',sans-serif;font-weight:600">(~'+est+' pts)</span>';}
+    else{wp.className='word-preview empty';wp.textContent='Click tiles below to select them in order';}
+    var html='<div class="cw-board" style="grid-template-columns:repeat('+BOARD_SIZE+',24px);grid-template-rows:repeat('+BOARD_SIZE+',24px);">';
+    for(var r=0;r<BOARD_SIZE;r++)for(var c=0;c<BOARD_SIZE;c++){
+      var key=r+','+c,placed=state.board[r][c],prv=pm[key],isC=r===CENTER&&c===CENTER;
+      if(placed)html+='<div class="cw-cell">'+placed+'<span class="cv">'+LETTER_VAL[placed]+'</span></div>';
+      else if(prv)html+='<div class="cw-cell preview">'+prv+'<span class="cv">'+LETTER_VAL[prv]+'</span></div>';
+      else if(isC)html+='<div class="cw-cell center">★</div>';
+      else html+='<div class="cw-cell empty"></div>';
+    }
+    document.getElementById('pbs-cwScroll').innerHTML=html+'</div>';
+  }
+
+  function renderRack(){
+    var el=document.getElementById('pbs-rackEl');
+    if(!state.rack.length){el.innerHTML='<span style="font-size:12px;color:#4a4a6a;padding:4px">No tiles — complete a Bingo to earn more!</span>';return;}
+    var html='';
+    state.rack.forEach(function(l,i){html+='<div class="tile'+(selected.indexOf(i)!==-1?' sel':'')+'" data-i="'+i+'">'+l+'<span class="tv">'+LETTER_VAL[l]+'</span></div>';});
+    el.innerHTML=html;
+    el.querySelectorAll('.tile').forEach(function(t){
+      t.addEventListener('click',function(){selectTile(parseInt(t.dataset.i));});
+    });
+  }
+
+  function renderWords(){
+    document.getElementById('pbs-wordsPlayed').innerHTML=state.playedWords.map(function(w){return'<div class="pw">'+w.word+' <span>+'+w.pts+'</span></div>';}).join('')||'<span style="font-size:12px;color:#4a4a6a">None yet</span>';
+  }
+
+  function selectTile(i){var idx=selected.indexOf(i);if(idx===-1)selected.push(i);else selected.splice(idx,1);renderBoard();renderRack();}
+
+  function canPlace(prev){
+    if(!prev.length)return{ok:false,msg:'Select tiles and set a starting position'};
+    for(var i=0;i<prev.length;i++){
+      var cell=prev[i];
+      if(cell.r<0||cell.r>=BOARD_SIZE||cell.c<0||cell.c>=BOARD_SIZE)return{ok:false,msg:'Word goes out of bounds'};
+      if(state.board[cell.r][cell.c]!==null)return{ok:false,msg:'A cell is already occupied'};
+    }
+    if(!state.playedWords.length){
+      if(!prev.some(function(c){return c.r===CENTER&&c.c===CENTER;}))return{ok:false,msg:'First word must pass through center (row 8, col 8)'};
+    } else {
+      var touches=prev.some(function(cell){
+        return[[cell.r-1,cell.c],[cell.r+1,cell.c],[cell.r,cell.c-1],[cell.r,cell.c+1]].some(function(n){
+          return n[0]>=0&&n[0]<BOARD_SIZE&&n[1]>=0&&n[1]<BOARD_SIZE&&state.board[n[0]][n[1]]!==null;
+        });
+      });
+      if(!touches)return{ok:false,msg:'Word must connect to an existing tile'};
+    }
+    return{ok:true};
+  }
+
+  function playWord(){
+    var prev=getPreview(),check=canPlace(prev);
+    if(!check.ok){pbsToast(check.msg);return;}
+    var pts=scoreWord(prev),word=prev.map(function(c){return c.l;}).join('');
+    prev.forEach(function(cell){state.board[cell.r][cell.c]=cell.l;});
+    var idxSet=selected.slice();
+    state.rack=state.rack.filter(function(_,i){return idxSet.indexOf(i)===-1;});
+    state.score+=pts;state.playedWords.push({word:word,pts:pts});selected=[];
+    saveState();pbsToast('"'+word+'" — '+pts+' pts!');renderAll();
+  }
+
+  function markCell(ri,ci){
+    if(state.bingoCard[ri][ci].marked)return;
+    state.bingoCard[ri][ci].marked=true;
+    var newWins=checkBingo(state.bingoCard);
+    var genuineNew=newWins.filter(function(w){return state.winLines.indexOf(w)===-1;});
+    if(genuineNew.length){
+      newWinLines=genuineNew;state.winLines=newWins;state.bingoWins+=genuineNew.length;
+      var bonus=state.bingoWins*2,drawn=drawTiles(bonus);state.rack=state.rack.concat(drawn);
+      document.getElementById('pbs-bingoFlash').textContent='🎉 BINGO! +'+bonus+' tiles!';
+      pbsToast('BINGO! +'+bonus+' tiles added!');
+      setTimeout(function(){newWinLines=[];document.getElementById('pbs-bingoFlash').textContent='';renderBingo();},3500);
+    }
+    saveState();renderAll();
+  }
+
+  function saveState(){
+    lsset('state-'+pid,Object.assign({},state,{bagArr:bag.slice()}));
+    var marked=state.bingoCard.reduce(function(s,r){return s+r.filter(function(c){return c.marked;}).length;},0);
+    zohoUpsert(pid,state.month,marked,state.bingoWins,state.score);
+  }
+
+  function loadAdmin(){
+    var storedEx=lsget('admin-exercises');
+    if(storedEx)exercises=storedEx;
+    renderExInputs();renderAdminStats();
+  }
+
+  function renderExInputs(){
+    var html='';
+    for(var i=0;i<8;i++)html+='<div class="ex-row"><span class="ex-num">'+(i+1)+'.</span><input class="ex-input" type="text" maxlength="24" value="'+(exercises[i]||'')+'" placeholder="Exercise '+(i+1)+'" id="pbs-ex'+i+'"></div>';
+    document.getElementById('pbs-exInputs').innerHTML=html;
+  }
+
+  function saveExercises(){
+    var vals=[];
+    for(var i=0;i<8;i++){var el=document.getElementById('pbs-ex'+i);if(el&&el.value.trim())vals.push(el.value.trim());}
+    if(vals.length<2){pbsToast('Enter at least 2 exercises');return;}
+    exercises=vals;lsset('admin-exercises',exercises);pbsToast('Exercises saved!');
+  }
+
+  function resetExercises(){exercises=DEFAULT_EX.slice();renderExInputs();pbsToast('Reset to defaults');}
+
+  function renderAdminStats(){
+    var wrap=document.getElementById('pbs-adminStats');
+    wrap.innerHTML='<div style="font-size:12px;color:#8a8a9a">Loading from Zoho...</div>';
+    var mk=monthKey();
+    zcQuery('Month_Year == "'+mk+'"').then(function(rows){
+      if(!rows||!rows.length){wrap.innerHTML='<div style="font-size:12px;color:#4a4a6a">No participant data for this month yet.</div>';return;}
+      rows.sort(function(a,b){return String(a.Participant_ID).localeCompare(String(b.Participant_ID));});
+      var avgC=Math.round(rows.reduce(function(s,r){return s+(parseFloat(r.Completion_Pct)||0);},0)/rows.length);
+      var avgB=(rows.reduce(function(s,r){return s+(parseInt(r.Bingo_Wins)||0);},0)/rows.length).toFixed(1);
+      var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">'
+        +'<div style="background:#0d1b2a;border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:#8a8a9a;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Avg Completion</div><div style="font-family:\'Abril Fatface\',serif;font-size:24px;color:#f5c842">'+avgC+'%</div><div style="font-size:10px;color:#4a4a6a">'+rows.length+' participants</div></div>'
+        +'<div style="background:#0d1b2a;border-radius:8px;padding:10px;text-align:center"><div style="font-size:10px;color:#8a8a9a;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Avg Bingos</div><div style="font-family:\'Abril Fatface\',serif;font-size:24px;color:#f5c842">'+avgB+'</div><div style="font-size:10px;color:#4a4a6a">per person</div></div>'
+        +'</div>';
+      rows.forEach(function(r){
+        html+='<div class="participant-row"><span class="pid">'+r.Participant_ID+'</span><span class="pstats">Squares: <span>'+r.Squares_Marked+'/25 ('+Math.round((r.Squares_Marked/25)*100)+'%)</span> &nbsp;·&nbsp; Bingos: <span>'+r.Bingo_Wins+'</span> &nbsp;·&nbsp; Score: <span>'+r.Word_Score+'pts</span></span></div>';
+      });
+      wrap.innerHTML=html;
+    }).catch(function(){wrap.innerHTML='<div style="font-size:12px;color:#e74c3c">Could not load Zoho data.</div>';});
+  }
+
+  // ── Wire up all events via addEventListener — no inline onclick ──
+  function init(){
+    document.getElementById('pbs-btn-start').addEventListener('click',pbsLogin);
+    document.getElementById('pbs-btn-newmonth').addEventListener('click',startNewMonth);
+    document.getElementById('pbs-btn-game').addEventListener('click',function(){showScreen('game');});
+    document.getElementById('pbs-btn-admin').addEventListener('click',function(){showScreen('admin');});
+    document.getElementById('pbs-btn-logout').addEventListener('click',function(){
+      pid='';state=null;selected=[];
+      document.getElementById('pbs-navRow').style.display='none';
+      document.getElementById('pbs-pidInput').value='';
+      showScreen('login');
+    });
+    document.getElementById('pbs-btn-play').addEventListener('click',playWord);
+    document.getElementById('pbs-btn-clear').addEventListener('click',function(){selected=[];renderBoard();renderRack();});
+    document.getElementById('pbs-btn-saveex').addEventListener('click',saveExercises);
+    document.getElementById('pbs-btn-resetex').addEventListener('click',resetExercises);
+    document.getElementById('pbs-pidInput').addEventListener('keydown',function(e){if(e.key==='Enter')pbsLogin();});
+    document.getElementById('pbs-pRow').addEventListener('input',renderBoard);
+    document.getElementById('pbs-pCol').addEventListener('input',renderBoard);
+    document.getElementById('pbs-pDir').addEventListener('change',renderBoard);
+
+    if(typeof ZOHO!=='undefined'&&ZOHO.CREATOR){
+      ZOHO.CREATOR.init().then(function(){console.log('Zoho SDK ready');}).catch(function(e){console.warn('Zoho SDK:',e);});
+    }
+  }
+
+  // Run init after DOM is ready
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+  else{init();}
+
+})();
+</script>
