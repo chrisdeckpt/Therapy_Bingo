@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rounds</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Rounds</h1>
+    <p class="tagline">Group the 16 findings into 4 diagnoses.</p>
+    <label class="picker">Puzzle
+      <select id="puzzle-select" aria-label="Choose a puzzle"></select>
+    </label>
+  </header>
+
+  <main>
+    <p id="topic" class="topic"></p>
+    <div id="solved" class="solved" aria-live="polite"></div>
+    <div id="grid" class="grid" role="group" aria-label="Clinical findings"></div>
+    <p id="message" class="message" role="status" aria-live="polite"></p>
+
+    <div class="mistakes">Mistakes left:
+      <span id="mistake-dots" aria-label=""></span>
+    </div>
+
+    <div class="controls">
+      <button id="shuffle" type="button">Shuffle</button>
+      <button id="deselect" type="button">Deselect all</button>
+      <button id="submit" type="button" class="primary" disabled>Submit</button>
+    </div>
+    <div class="controls end-controls" hidden id="end-controls">
+      <button id="restart" type="button">Play again</button>
+      <button id="next" type="button" class="primary">Next puzzle</button>
+    </div>
+
+    <section id="load-error" class="load-error" hidden>
+      <h2>Couldn't load puzzles.json</h2>
+      <p>Browsers block reading local files from a page opened by double-click. Either run
+        <code>python3 -m http.server</code> in this folder and open
+        <code>http://localhost:8000</code>, or pick the file here:</p>
+      <input type="file" id="file-input" accept=".json,application/json">
+      <pre id="error-detail"></pre>
+    </section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

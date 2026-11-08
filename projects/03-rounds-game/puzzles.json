@@ -1,0 +1,97 @@
+{
+  "puzzles": [
+    {
+      "id": "lumbar-hip",
+      "title": "Low back or hip?",
+      "topic": "Lumbopelvic differential diagnosis",
+      "groups": [
+        {
+          "name": "Lumbar spinal stenosis",
+          "difficulty": 1,
+          "items": ["Shopping-cart sign", "Symptoms ease with sitting", "Bilateral neurogenic claudication", "Thigh pain after 30 s lumbar extension"],
+          "explanation": "Stenosis narrows the canal and foramina. Extension narrows them further and flexion opens them, so patients lean on carts and feel better sitting. Leg symptoms with walking that ease with flexion, not just with standing still, point to neurogenic rather than vascular claudication."
+        },
+        {
+          "name": "Lumbar disc herniation",
+          "difficulty": 2,
+          "items": ["Positive straight leg raise", "Positive crossed SLR", "Pain worse with cough or sneeze", "Dermatomal pain below the knee"],
+          "explanation": "SLR is sensitive for radiculopathy from a herniated disc, and crossed SLR is specific. Valsalva raises intrathecal pressure and aggravates the irritated root. Radicular pain usually follows a dermatome and runs below the knee."
+        },
+        {
+          "name": "SI joint dysfunction",
+          "difficulty": 3,
+          "items": ["Positive thigh thrust", "Positive distraction test", "Fortin finger sign", "Positive Gaenslen test"],
+          "explanation": "Laslett's cluster uses five provocation tests: distraction, thigh thrust, compression, sacral thrust, and Gaenslen. Three or more positive tests make SIJ pain more likely. The Fortin finger sign, where the patient points to just below the PSIS, is a supporting clue."
+        },
+        {
+          "name": "Hip osteoarthritis",
+          "difficulty": 4,
+          "items": ["Passive hip IR ≤ 25°", "Scour test reproduces groin pain", "Morning stiffness < 1 hour", "Pain with squatting"],
+          "explanation": "Sutlive's cluster includes painful squatting, a painful scour, and limited internal rotation. Hip OA usually follows a capsular pattern, with IR lost first. Morning stiffness that clears within an hour separates OA from inflammatory arthritis."
+        }
+      ]
+    },
+    {
+      "id": "shoulder",
+      "title": "The painful shoulder",
+      "topic": "Shoulder special tests",
+      "groups": [
+        {
+          "name": "Full-thickness rotator cuff tear",
+          "difficulty": 1,
+          "items": ["Drop arm sign", "External rotation lag sign", "Hornblower's sign", "Positive lift-off test"],
+          "explanation": "Lag signs and drop arm test whether the tendon can hold a position, not just whether it hurts. A lag means the tendon has lost continuity. Hornblower's points to infraspinatus/teres minor, and lift-off points to subscapularis."
+        },
+        {
+          "name": "Subacromial pain syndrome",
+          "difficulty": 2,
+          "items": ["Hawkins-Kennedy test", "Neer sign", "Painful arc 60–120°", "Relief after subacromial injection"],
+          "explanation": "These tests compress the subacromial space during elevation and rotation. A painful arc that eases above 120° is typical. Relief after a subacromial anesthetic injection (the Neer test) supports a subacromial source."
+        },
+        {
+          "name": "Adhesive capsulitis",
+          "difficulty": 3,
+          "items": ["Passive ER most limited", "Active and passive ROM equally lost", "History of diabetes", "Normal radiograph"],
+          "explanation": "The capsule contracts, so passive motion is lost as much as active motion, with external rotation hit hardest. Diabetes is a major risk factor. Imaging is usually normal, which helps rule out glenohumeral OA, the other condition with a capsular pattern."
+        },
+        {
+          "name": "SLAP / labral tear",
+          "difficulty": 4,
+          "items": ["O'Brien active compression", "Biceps load II", "Crank test", "Clicking or catching overhead"],
+          "explanation": "The superior labrum anchors the long head of biceps. Tests that load the biceps anchor (O'Brien, Biceps load II) or grind the labrum (Crank) provoke symptoms, and mechanical clicking with overhead motion is common. No single test is definitive, so use them together."
+        }
+      ]
+    },
+    {
+      "id": "dizziness",
+      "title": "The dizzy patient",
+      "topic": "Vestibular differential diagnosis",
+      "groups": [
+        {
+          "name": "Posterior canal BPPV",
+          "difficulty": 1,
+          "items": ["Upbeat torsional nystagmus on Dix-Hallpike", "Vertigo lasting < 1 minute", "Rolling over in bed triggers it", "Nystagmus fatigues with repetition"],
+          "explanation": "Loose otoconia in the posterior canal cause brief vertigo when the head moves relative to gravity. Dix-Hallpike provokes upbeating, torsional nystagmus after a short latency, and it fades with repeated testing. Treat with canalith repositioning (Epley)."
+        },
+        {
+          "name": "Vestibular neuritis",
+          "difficulty": 2,
+          "items": ["Abnormal head impulse test", "Unidirectional horizontal nystagmus", "Continuous vertigo for days", "Recent viral illness"],
+          "explanation": "Inflammation of the vestibular nerve causes a sudden, ongoing loss of input from one side. The head impulse test shows a corrective saccade toward the bad side, and nystagmus beats away from it in one direction only. Hearing is spared."
+        },
+        {
+          "name": "Central cause (posterior circulation stroke)",
+          "difficulty": 3,
+          "items": ["Normal head impulse in acute vertigo", "Direction-changing nystagmus", "Skew deviation", "Dysmetria"],
+          "explanation": "HINTS is dangerous when any one of these appears: a normal head impulse, direction-changing nystagmus, or a positive test of skew. In acute vestibular syndrome, HINTS outperforms early MRI. Add any cerebellar sign and this needs emergency referral."
+        },
+        {
+          "name": "Ménière's disease",
+          "difficulty": 4,
+          "items": ["Fluctuating low-frequency hearing loss", "Aural fullness", "Tinnitus", "Episodes lasting 20 min to 12 h"],
+          "explanation": "Endolymphatic hydrops causes recurring attacks of vertigo together with ear symptoms. Episodes last longer than BPPV and shorter than neuritis, and hearing loss, fullness, and tinnitus set it apart from the other three."
+        }
+      ]
+    }
+  ]
+}

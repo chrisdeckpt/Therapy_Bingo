@@ -1,0 +1,3 @@
+data/*
+!data/synthetic_cohort.csv
+__pycache__/

@@ -1,0 +1,4 @@
+data/*
+!data/history.csv
+!data/current.csv
+__pycache__/

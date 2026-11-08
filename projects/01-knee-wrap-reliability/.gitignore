@@ -1,0 +1,4 @@
+data/*
+!data/synthetic_trials.csv
+output_real/
+__pycache__/
